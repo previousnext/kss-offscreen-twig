@@ -1,0 +1,15 @@
+{
+  "name": "previousnext/kss-offscreen-twig",
+  "type": "library",
+  "description": "A kss-node twig builder with offscreen menu and search.",
+  "homepage": "https://github.com/previousnext/kss-offscreen-twig",
+  "support": {
+    "issues": "https://github.com/previousnext/kss-offscreen-twig",
+    "source": "https://github.com/previousnext/kss-offscreen-twig"
+  },
+  "keywords": [
+    "kss",
+    "kss-node",
+    "builder"
+  ]
+}
