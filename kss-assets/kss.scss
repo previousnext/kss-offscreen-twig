@@ -569,6 +569,47 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   }
 
   // ------------------------------------------------------------------------------
+  // Full screen components and modifiers.
+  // ------------------------------------------------------------------------------
+
+  .kss-fullscreen__button {
+    width: 20px;
+    height: 20px;
+    background: url('fullscreen-icon.svg') no-repeat 0 / 50px 20px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 2px 5px 0 0;
+    float: right;
+    cursor: pointer;
+
+    &.is-active {
+      background-position: -30px 0;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &.is-fullscreen {
+    .kss-section {
+      max-width: none;
+    }
+
+    .kss-modifier__wrapper {
+      padding-left: 0;
+      padding-right: 0;
+      border: 0;
+    }
+
+    .kss-modifier__example {
+      margin-left: -20px;
+      margin-right: -20px;
+    }
+  }
+
+  // ------------------------------------------------------------------------------
   //   group prettyprint.js styling
   // ------------------------------------------------------------------------------
   /* Pretty printing styles. Used with prettify.js. */
