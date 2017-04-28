@@ -141,9 +141,10 @@
           {% endfor %}
         </div>
         {% if section.markup %}
-          <div class="kss-markup kss-style">
+          <details class="kss-markup kss-style">
+            <summary>Markup</summary>
             <pre class="prettyprint linenums lang-html"><code data-language="html">{{ section.markup|escape('html') }}</code></pre>
-          </div>
+          </details>
         {% endif %}
       {% endif %}
 

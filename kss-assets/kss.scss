@@ -517,8 +517,21 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   }
 
   .kss-markup {
-    margin: 20px 0 $kss-vertical-rhythm 0;
+    margin: 0 0 $kss-vertical-rhythm 0;
     border: 1px solid $kss-colors-sidebar;
+
+    summary {
+      text-shadow: 1px 1px 1px #FFF;
+      display: block;
+      padding: 5px 20px 2px 45px;
+      background: $kss-colors-sidebar url('markup-icon.svg') no-repeat 20px center / 20px;
+      font-weight: bold;
+      cursor: pointer;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+    }
   }
   .kss-markup pre {
     margin: 0;
@@ -598,7 +611,7 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
     li {
       min-height: $kss-vertical-rhythm;
       border-bottom: 1px solid #eee;
-      padding: 0 10px;
+      padding: 0 20px;
       background: #fff;
 
       &:first-child {
