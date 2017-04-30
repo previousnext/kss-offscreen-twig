@@ -2,7 +2,7 @@
   "name": "kss-offscreen-twig",
   "author": "PreviousNext",
   "license": "(MIT OR GPL-2.0)",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A custom twig buidler for KSS node with an offscreen menu and search.",
   "main": "builder.js",
   "repository": {
