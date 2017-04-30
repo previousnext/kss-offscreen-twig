@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="kss-assets/kss.css">
   {{ styles|raw }}
 </head>
-<body id="kss-node" class="kss-offscreen is-moved">
+<body id="kss-node" class="kss-offscreen kss-fullscreen is-moved">
 
 <header class="kss-header">
   <h1 class="kss-doc-title">{{ options.title }}</h1>
@@ -116,6 +116,7 @@
         <div class="kss-modifier__wrapper">
           <div class="kss-modifier__heading kss-style">
             Example{% if section.modifiers is not empty %}s{% endif %}
+            <a href="#kssref-{{ section.referenceURI }}" data-kss-fullscreen="kssref-{{ section.referenceURI }}" class="kss-fullscreen__button">Full screen</a>
           </div>
 
           {% if section.modifiers is not empty %}
@@ -141,9 +142,10 @@
           {% endfor %}
         </div>
         {% if section.markup %}
-          <div class="kss-markup kss-style">
+          <details class="kss-markup kss-style">
+            <summary>Markup</summary>
             <pre class="prettyprint linenums lang-html"><code data-language="html">{{ section.markup|escape('html') }}</code></pre>
-          </div>
+          </details>
         {% endif %}
       {% endif %}
 
@@ -178,6 +180,7 @@
 <script src="kss-assets/jquery.min.js"></script>
 <script src="kss-assets/jquery.easy-autocomplete.min.js"></script>
 <script src="kss-assets/offscreen.js"></script>
+<script src="kss-assets/fullscreen.js"></script>
 <script src="kss-assets/search.js"></script>
 <script>
   prettyPrint();
