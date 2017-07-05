@@ -35,6 +35,7 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
     text-decoration: none;
     transition-property: color;
     transition-duration: 0.5s;
+    word-wrap: break-word;
 
     &:visited { color: $kss-colors-link-visited; }
     &:hover,
@@ -87,6 +88,7 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
     font-family: $kss-font-code;
     color: mix($kss-colors-foreground, $kss-colors-heading, 50%);
     font-size: 1em;
+    word-wrap: break-word;
   }
 
   pre {
@@ -202,6 +204,14 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
 // ------------------------------------------------------------------------------
 // Offscreen components
 // ------------------------------------------------------------------------------
+
+.no-scroll {
+  overflow: hidden;
+
+  @media screen and (min-width: 769px) {
+    overflow: auto;
+  }
+}
 
 #kss-node.kss-offscreen {
   position: relative;

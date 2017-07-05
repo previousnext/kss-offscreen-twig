@@ -6,7 +6,7 @@
   var desktopWidth  = 769;
 
   // Toggle open by default.
-  // Classes set in index.hbs
+  // Classes set in index.twig
   var toggleOpen    = true;
 
   // Do the toggle.
@@ -14,9 +14,13 @@
     if (toggleOpen) {
       $offscreen.removeClass('is-moved');
       $toggleLink.removeClass('is-active').attr('aria-expanded', 'false');
+      setTimeout(function () {
+        $offscreen.removeClass('no-scroll').parent().removeClass('no-scroll');
+      }, 300);
     }
     else {
-      $offscreen.addClass('is-moved');
+      $offscreen.addClass('is-moved').addClass('no-scroll');
+      $offscreen.parent().addClass('no-scroll');
       $toggleLink.addClass('is-active').attr('aria-expanded', 'true');
     }
     toggleOpen = !toggleOpen;
