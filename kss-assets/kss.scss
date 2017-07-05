@@ -524,7 +524,7 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
       text-shadow: 1px 1px 1px #FFF;
       display: block;
       padding: 5px 20px 2px 45px;
-      background: $kss-colors-sidebar url('markup-icon.svg') no-repeat 20px center / 20px;
+      background: $kss-colors-sidebar url('markup-icon.svg') no-repeat 20px center / 20px 20px;
       font-weight: bold;
       cursor: pointer;
 
@@ -533,6 +533,16 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
       }
     }
   }
+
+  // Fixes for polyfill version.
+  .kss-markup summary a {
+    display: block;
+    font-weight: bold;
+  }
+  .kss-markup > summary::before {
+    display: none;
+  }
+
   .kss-markup pre {
     margin: 0;
   }
