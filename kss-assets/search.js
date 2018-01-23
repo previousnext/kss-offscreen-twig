@@ -19,7 +19,7 @@
     data: tocList($('#kss-toc li')),
     placeholder: "Search",
     getValue: function(element) {
-      return element.name;
+      return String(element.name);
     },
     list: {
       match: {
