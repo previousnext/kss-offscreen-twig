@@ -20,8 +20,8 @@
 <div class="kss-sidebar kss-offscreen__item" id="offscreen-item">
 
   <div class="kss-search">
-    <label for="kss-search" style="display: none;">Search</label>
-    <input id="kss-search" type="text" />
+    <label for="search" style="display: none;">Search</label>
+    <input name="search" type="text" placeholder="Search components" />
   </div>
 
   <nav class="kss-nav">
@@ -146,10 +146,10 @@
 
 <ul id="kss-toc" style="display: none;">
   {% for menu_item in menu %}
-    <li data-url="./section-{{ menu_item.referenceURI }}.html#kssref-{{ menu_item.referenceURI }}" data-name="{{ menu_item.header }}"></li>
+    <li data-url="section-{{ menu_item.referenceURI }}.html#kssref-{{ menu_item.referenceURI }}" data-name="{{ menu_item.referenceNumber }} {{ menu_item.header }}"></li>
     {% if menu_item.children is not empty %}
       {% for menu_child in menu_item.children %}
-        <li data-url="./section-{{ menu_item.referenceURI }}.html#kssref-{{ menu_child.referenceURI }}" data-name="{{ menu_child.header }}"></li>
+        <li data-url="section-{{ menu_item.referenceURI }}.html#kssref-{{ menu_child.referenceURI }}" data-name="{{ menu_child.referenceNumber }} {{ menu_child.header }}"></li>
       {% endfor %}
     {% endif %}
   {% endfor %}
@@ -158,20 +158,11 @@
 </div>
 
 <!-- SCRIPTS -->
+<script src="kss-assets/auto-complete.min.js"></script>
+<script src="kss-assets/kss.js"></script>
 <script src="kss-assets/kss.hideAll.js"></script>
 <script src="kss-assets/kss.offscreen.js"></script>
-<script src="kss-assets/kss.js"></script>
-<script src="kss-assets/scrollspy.js"></script>
-<script src="kss-assets/jquery.min.js"></script>
-<script src="kss-assets/jquery.easy-autocomplete.min.js"></script>
-<script src="kss-assets/details-element-polyfill.js"></script>
-<script src="kss-assets/search.js"></script>
-<script>
-  var spy = new ScrollSpy('#kss-node', {
-    nav: '.kss-nav__menu-child > li > a',
-    className: 'is-in-viewport'
-  });
-</script>
+<script src="kss-assets/kss.autocomplete.js"></script>
 {{ scripts|raw }}
 
 {# This will only be included in the demo page. #}
