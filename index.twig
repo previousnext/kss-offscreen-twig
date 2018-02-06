@@ -11,13 +11,12 @@
   <link rel="stylesheet" href="kss-assets/kss.css">
   {{ styles|raw }}
 </head>
-<body id="kss-node" class="kss-offscreen kss-fullscreen is-moved">
-<header class="kss-header">
-  <h1 class="kss-doc-title">{{ options.title }}</h1>
-  <a class="kss-offscreen__toggle is-active" aria-expanded="true" aria-controls="offscreen-item" role="button">Open or close the menu</a>
-</header>
+<body id="kss-node" class="kss-offscreen is-moved">
 <div class="kss-offscreen__inner">
-
+  <header class="kss-header">
+    <h1 class="kss-doc-title">{{ options.title }}</h1>
+    <a id="kss-offscreen-toggle" class="kss-offscreen__toggle is-active" aria-expanded="true" aria-controls="offscreen-item" role="button">Open or close the menu</a>
+  </header>
 <div class="kss-sidebar kss-offscreen__item" id="offscreen-item">
 
   <div class="kss-search">
@@ -160,12 +159,12 @@
 
 <!-- SCRIPTS -->
 <script src="kss-assets/kss.hideAll.js"></script>
+<script src="kss-assets/kss.offscreen.js"></script>
 <script src="kss-assets/kss.js"></script>
 <script src="kss-assets/scrollspy.js"></script>
 <script src="kss-assets/jquery.min.js"></script>
 <script src="kss-assets/jquery.easy-autocomplete.min.js"></script>
 <script src="kss-assets/details-element-polyfill.js"></script>
-<script src="kss-assets/offscreen.js"></script>
 <script src="kss-assets/search.js"></script>
 <script>
   var spy = new ScrollSpy('#kss-node', {

@@ -169,7 +169,6 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
     font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
     font-weight: bold;
     padding: 20px 20px 16px;
-    position: fixed;
     background-color: #222;
     color: #fff;
     width: 100%;
@@ -194,7 +193,7 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   .kss-sidebar {
     height: 100%;
     overflow: auto;
-    padding: 80px 20px 20px;
+    padding: 17px 20px 20px;
     background-color: $kss-colors-sidebar;
     box-sizing: border-box;
   }
@@ -218,7 +217,6 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   width: 100%;
 
   .kss-offscreen__inner {
-    transition: margin .3s ease;
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -228,7 +226,6 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
     backface-visibility: hidden;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
-    transition: left .3s ease;
     top: 0;
     bottom: 0;
     left: -100%;
@@ -356,10 +353,10 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   input[type=text] {
     width: 250px;
     background: $kss-colors-background;
-    border: 2px solid $kss-colors-border;
+    border: 1px solid $kss-colors-border;
     color: $kss-colors-foreground;
     box-shadow: none;
-    border-radius: 6px;
+    border-radius: 0;
     padding: 0 .625rem 0 .3125rem;
     height: 2.75rem;
     text-indent: .3125rem;
@@ -384,11 +381,9 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
 
     ul {
       background: lighten($kss-colors-sidebar, 5%);
-      border-width: 2px;
+      border-width: 1px;
       border-style: solid;
       border-color: $kss-colors-border;
-      border-bottom-right-radius: 6px;
-      border-bottom-left-radius: 6px;
       margin: -4px 0 0;
       padding: 6px 0 0;
       list-style: none;
@@ -422,7 +417,7 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
 
   .kss-section {
     max-width: 1400px;
-    padding-top: ($kss-vertical-rhythm * 2);
+    margin-bottom: ($kss-vertical-rhythm * 2);
   }
 
   .kss-title {
@@ -700,7 +695,6 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
       padding: 0 !important;
       border: 0 !important;
       max-width: none;
-      transition: none;
     }
 
     .kss-title {
