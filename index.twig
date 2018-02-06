@@ -12,7 +12,6 @@
   {{ styles|raw }}
 </head>
 <body id="kss-node" class="kss-offscreen kss-fullscreen is-moved">
-
 <header class="kss-header">
   <h1 class="kss-doc-title">{{ options.title }}</h1>
   <a class="kss-offscreen__toggle is-active" aria-expanded="true" aria-controls="offscreen-item" role="button">Open or close the menu</a>
@@ -76,12 +75,9 @@
       <div class="kss-style">
         {% set headerElement = (section.depth > 6) ? 'h6' : 'h' ~ section.depth %}
         <{{ headerElement }} class="kss-title kss-title--level-{{ section.depth }}">
-          <a class="kss-title__permalink" href="#kssref-{{ section.referenceURI }}">
-            <span class="kss-title__ref">
-              {{ section.referenceNumber }}
-            </span>
-            {{ section.header }}
-          </a>
+          <a class="kss-title__ref" href="#kssref-{{ section.referenceURI }}">{{ section.referenceNumber }}</a>
+          {{ section.header }}
+          {% if section.depth != 1 %}<a href="item-{{ section.referenceURI }}.html" target="_blank" class="kss-title__view-link">View in a new window</a>{% endif %}
         </{{ headerElement }}>
 
         {% if section.description %}

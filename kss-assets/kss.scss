@@ -428,29 +428,22 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   .kss-title {
     margin-bottom: 0;
   }
+
   .kss-title__ref {
     color: #ccc;
   }
-  .kss-title__permalink {
-    display: block;
-    color: #000;
-    text-decoration: none;
 
-    &:hover,
-    &:focus,
-    &:active {
-      color: $kss-colors-link;
-
-      @media screen and (min-width: 607px) {
-        .kss-title__permalink-hash {
-          display: inline;
-        }
-      }
-    }
-  }
-  .kss-title__permalink-hash {
-    display: none;
-    color: #ccc;
+  .kss-title__view-link {
+    width: 24px;
+    height: 24px;
+    background: url('view.svg') no-repeat 0 / 22px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 2px 5px 0 0;
+    cursor: pointer;
+    vertical-align: baseline;
+    display: inline-block;
   }
 
   .kss-title--level-1 {
@@ -493,7 +486,7 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   .kss-modifier__wrapper {
     border: 1px solid $kss-colors-sidebar;
     padding: 20px;
-    margin-bottom: $kss-vertical-rhythm;
+    margin: $kss-vertical-rhythm 0;
   }
   .kss-modifier__heading {
     text-shadow: 1px 1px 1px #FFF;
@@ -502,6 +495,7 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
     color: $kss-colors-foreground;
     font-weight: bold;
     border-bottom: 1px solid $kss-colors-sidebar;
+    background: $kss-colors-background;
   }
 
   .kss-modifier__default-name {
