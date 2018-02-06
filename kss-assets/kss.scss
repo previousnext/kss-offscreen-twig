@@ -684,4 +684,45 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
       background: #fcfcfc;
     }
   }
+
+
+  // ------------------------------------------------------------------------------
+  // Hide all elements
+  // ------------------------------------------------------------------------------
+
+  &.kss--hide-all {
+    margin-bottom: 60px;
+
+    .kss-header,
+    .kss-sidebar,
+    .kss-modifier__heading,
+    .kss-description,
+    .kss-title__view-link {
+      display: none;
+    }
+
+    .kss-section,
+    .kss-main,
+    .kss-offscreen__inner,
+    .kss-modifier__wrapper {
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      max-width: none;
+      transition: none;
+    }
+
+    .kss-title {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      border-top: 1px solid $kss-colors-sidebar;
+      padding: 14px 20px;
+      background: #fff;
+      z-index: 9999;
+      margin: 0;
+      height: 60px;
+    }
+  }
 }
