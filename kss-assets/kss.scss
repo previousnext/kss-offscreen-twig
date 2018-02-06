@@ -146,9 +146,9 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   @media print {
     a, a:visited { text-decoration: underline; }
     hr { height: 1px; border:0; border-bottom:1px solid black; }
-    a[href]:after { content: " (" attr(href) ")"; }
-    a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
-    abbr[title]:after { content: " (" attr(title) ")"; }
+    a[href]:after { content: ' (' attr(href) ')'; }
+    a[href^='javascript:']:after, a[href^='#']:after { content: ''; }
+    abbr[title]:after { content: ' (' attr(title) ')'; }
     pre, blockquote { border: 1px solid #999; padding-right: 1em; page-break-inside: avoid; }
     tr, img { page-break-inside: avoid; }
     img { max-width: 100% !important; }
