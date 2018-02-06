@@ -9,7 +9,7 @@ You can [see the demo here](https://previousnext.github.io/kss-offscreen-twig/).
 ## How to apply this builder
 
 1. Install kss-node. Type `npm install kss` or `npm install -g kss` for global CLI.
-2. Install this template `npm install kss-offscreen-twig@2.0`
+2. Install this template `npm install kss-offscreen-twig@alpha`
 3. Run `kss-node` command with `--builder` option, like below.
 
 ```
