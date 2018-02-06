@@ -493,15 +493,17 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   .kss-modifier__wrapper {
     border: 1px solid $kss-colors-sidebar;
     padding: 20px;
+    margin-bottom: $kss-vertical-rhythm;
   }
   .kss-modifier__heading {
     text-shadow: 1px 1px 1px #FFF;
     margin: -20px -20px 20px -20px;
     padding: 10px 10px 10px 20px;
-    background-color: $kss-colors-sidebar;
     color: $kss-colors-foreground;
     font-weight: bold;
+    border-bottom: 1px solid $kss-colors-sidebar;
   }
+
   .kss-modifier__default-name {
     font-weight: bold;
     margin-bottom: ($kss-vertical-rhythm / 2);
@@ -518,7 +520,7 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
     clear: left;
     padding: 1px 0; // Contain the example's margins.
     position: relative; // Contain the example's absolute positioning.
-    margin: 0 0 ($kss-vertical-rhythm - 1px) 0;
+    margin: 0 0 $kss-vertical-rhythm 0;
     overflow: visible;
 
     &:last-child {
