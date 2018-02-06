@@ -679,7 +679,8 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
     .kss-section,
     .kss-main,
     .kss-offscreen__inner,
-    .kss-modifier__wrapper {
+    .kss-modifier__wrapper,
+    .kss-modifier__example {
       margin: 0 !important;
       padding: 0 !important;
       border: 0 !important;

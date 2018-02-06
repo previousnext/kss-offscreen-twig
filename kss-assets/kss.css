@@ -761,7 +761,8 @@
 #kss-node.kss--hide-all .kss-section,
 #kss-node.kss--hide-all .kss-main,
 #kss-node.kss--hide-all .kss-offscreen__inner,
-#kss-node.kss--hide-all .kss-modifier__wrapper {
+#kss-node.kss--hide-all .kss-modifier__wrapper,
+#kss-node.kss--hide-all .kss-modifier__example {
   margin: 0 !important;
   padding: 0 !important;
   border: 0 !important;
