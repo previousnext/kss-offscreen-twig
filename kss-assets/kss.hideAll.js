@@ -1,4 +1,3 @@
-var urlParams = new URLSearchParams(window.location.search);
-if (urlParams.has('hideAll')) {
+if (window.location.search.search('hideAll')) {
   document.body.classList.add('kss--hide-all');
 }
