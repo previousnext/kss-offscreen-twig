@@ -86,6 +86,10 @@
         {% if section.description %}
           <div class="kss-description">
             {{ section.description|raw }}
+
+            {% if section.markupFile %}
+              <p>Twig: <code>{{ section.markupFile }}</code></p>
+            {% endif %}
           </div>
         {% endif %}
 
