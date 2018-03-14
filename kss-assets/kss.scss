@@ -351,6 +351,7 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   position: relative;
 
   input[type=text] {
+    box-sizing: border-box;
     width: 250px;
     background: $kss-colors-background;
     border: 1px solid $kss-colors-border;
