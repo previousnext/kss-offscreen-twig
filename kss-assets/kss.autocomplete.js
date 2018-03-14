@@ -1,6 +1,6 @@
 new autoComplete({
   selector: 'input[name="search"]',
-  menuClass: 'kss-autocomplete__menu',
+  menuClass: 'kss-autocomplete__menu kss-style',
   minChars: 1,
   offsetTop: -1,
   source: function(term, suggest) {

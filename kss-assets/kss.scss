@@ -372,6 +372,7 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
 }
 
 .kss-autocomplete__menu {
+  box-sizing: border-box;
   left: 0;
   position: absolute;
   width: 100%;

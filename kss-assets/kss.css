@@ -372,6 +372,7 @@
 }
 
 .kss-search input[type=text] {
+  box-sizing: border-box;
   width: 250px;
   background: #fff;
   border: 1px solid #c4d0d6;
@@ -390,6 +391,7 @@
 }
 
 .kss-autocomplete__menu {
+  box-sizing: border-box;
   left: 0;
   position: absolute;
   width: 100%;
