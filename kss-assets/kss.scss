@@ -1,24 +1,25 @@
 // ------------------------------------------------------------------------------
 //   Variables - Colors, Fonts, etc.
 // ------------------------------------------------------------------------------
-$kss-colors-background    : #fff;
+$kss-colors-background        : #fff;
 
-$kss-colors-foreground    : #444;
-$kss-colors-heading       : #111;
-$kss-colors-quotes        : #666;
-$kss-colors-sidebar       : #ecf1f3;
-$kss-colors-border        : #c4d0d6;
+$kss-colors-foreground        : #444;
+$kss-colors-foreground-light  : #eee;
+$kss-colors-heading           : #111;
+$kss-colors-quotes            : #666;
+$kss-colors-sidebar           : #ecf1f3;
+$kss-colors-border            : #c4d0d6;
 
-$kss-colors-link          : #0645ad;
-$kss-colors-link-visited  : #0645ad;
-$kss-colors-link-hover    : lighten($kss-colors-link, 20%);
-$kss-colors-link-active   : #faa700;
+$kss-colors-link              : #0645ad;
+$kss-colors-link-visited      : #0645ad;
+$kss-colors-link-hover        : lighten($kss-colors-link, 20%);
+$kss-colors-link-active       : #faa700;
 
-$kss-font-body            : Helvetica, 'Helvetica Neue', Arial, sans-serif;
-$kss-font-code            : Menlo, 'Ubuntu Mono', 'Lucida Console', 'Courier New', Courier, monospace;
+$kss-font-body                : Helvetica, 'Helvetica Neue', Arial, sans-serif;
+$kss-font-code                : Menlo, 'Ubuntu Mono', 'Lucida Console', 'Courier New', Courier, monospace;
 
-$kss-font-size            : 16px;
-$kss-vertical-rhythm      : $kss-font-size * 1.5;
+$kss-font-size                : 16px;
+$kss-vertical-rhythm          : $kss-font-size * 1.5;
 
 // ------------------------------------------------------------------------------
 // Wrap all of this builder's base HTML styling inside a .kss-style selector.
@@ -146,9 +147,9 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   @media print {
     a, a:visited { text-decoration: underline; }
     hr { height: 1px; border:0; border-bottom:1px solid black; }
-    a[href]:after { content: " (" attr(href) ")"; }
-    a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
-    abbr[title]:after { content: " (" attr(title) ")"; }
+    a[href]:after { content: ' (' attr(href) ')'; }
+    a[href^='javascript:']:after, a[href^='#']:after { content: ''; }
+    abbr[title]:after { content: ' (' attr(title) ')'; }
     pre, blockquote { border: 1px solid #999; padding-right: 1em; page-break-inside: avoid; }
     tr, img { page-break-inside: avoid; }
     img { max-width: 100% !important; }
@@ -169,7 +170,6 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
     font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
     font-weight: bold;
     padding: 20px 20px 16px;
-    position: fixed;
     background-color: #222;
     color: #fff;
     width: 100%;
@@ -178,7 +178,6 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   }
 
   .kss-doc-title {
-    padding-left: 40px;
     color: #fff;
     font-size: 1.5em;
     line-height: 24px;
@@ -194,7 +193,7 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   .kss-sidebar {
     height: 100%;
     overflow: auto;
-    padding: 80px 20px 20px;
+    padding: 17px 20px 20px;
     background-color: $kss-colors-sidebar;
     box-sizing: border-box;
   }
@@ -218,7 +217,6 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   width: 100%;
 
   .kss-offscreen__inner {
-    transition: margin .3s ease;
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -228,15 +226,25 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
     backface-visibility: hidden;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
-    transition: left .3s ease;
     top: 0;
     bottom: 0;
-    left: -100%;
+    left: -290px;
     position: fixed;
     overflow-x: hidden;
     overflow-y: auto;
     z-index: 1001;
     width: 290px;
+  }
+
+  .kss-offscreen__nav-backdrop {
+    position: fixed;
+    background: rgba(0,0,0,0.5);
+    left: 290px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 2000;
+    display: none;
   }
 
   .kss-offscreen__toggle {
@@ -246,19 +254,25 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
     display: inline-block;
     cursor: pointer;
     text-decoration: none;
-    width: 24px;
-    height: 24px;
-    position: absolute;
-    top: 22px;
-    left: 20px;
+    position: fixed;
+    left: auto;
+    right: 20px;
     text-indent: 100%;
     white-space: nowrap;
     overflow: hidden;
     background-repeat: no-repeat;
     background-image: url(toggle-icon.svg);
+    background-color: #222;
+    z-index: 100;
+    background-position: 4px 6px;
+    width: 32px;
+    height: 32px;
+    top: 14px;
   }
   .kss-offscreen__toggle.is-active {
-    background-position: 100% 0;
+    background-position: -24px 6px;
+    width: 32px;
+    height: 32px;
   }
 }
 
@@ -277,6 +291,12 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
 
   .kss-offscreen__item {
     left: 0;
+  }
+
+  .kss-offscreen__nav-backdrop {
+    @media (max-width: 768px) {
+      display: block;
+    }
   }
 }
 
@@ -354,12 +374,13 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   position: relative;
 
   input[type=text] {
+    box-sizing: border-box;
     width: 250px;
     background: $kss-colors-background;
-    border: 2px solid $kss-colors-border;
+    border: 1px solid $kss-colors-border;
     color: $kss-colors-foreground;
     box-shadow: none;
-    border-radius: 6px;
+    border-radius: 0;
     padding: 0 .625rem 0 .3125rem;
     height: 2.75rem;
     text-indent: .3125rem;
@@ -371,46 +392,30 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
       border-color: $kss-colors-border;
     }
   }
+}
 
-  .easy-autocomplete {
-    position: relative;
-  }
+.kss-autocomplete__menu {
+  box-sizing: border-box;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 9999;
+  background: $kss-colors-background;
+  border: 1px solid $kss-colors-border;
+  padding: 6px 0;
+  display: none;
+}
 
-  .easy-autocomplete-container {
-    left: 0;
-    position: absolute;
-    width: 100%;
-    z-index: 2;
+.kss-autocomplete__item {
+  color: $kss-colors-foreground;
+  text-decoration: none;
+  padding: 4px 12px;
+  display: block;
+  cursor: pointer;
 
-    ul {
-      background: lighten($kss-colors-sidebar, 5%);
-      border-width: 2px;
-      border-style: solid;
-      border-color: $kss-colors-border;
-      border-bottom-right-radius: 6px;
-      border-bottom-left-radius: 6px;
-      margin: -4px 0 0;
-      padding: 6px 0 0;
-      list-style: none;
-      position: relative;
-      display: none;
-    }
-
-    a {
-      color: $kss-colors-foreground;
-      text-decoration: none;
-      padding: 4px 12px;
-      display: block;
-
-      &:hover,
-      &:focus {
-        color: $kss-colors-link-hover;
-      }
-    }
-
-    b {
-      font-weight: bold;
-    }
+  &:hover,
+  &:focus {
+    color: $kss-colors-link-hover;
   }
 }
 
@@ -422,35 +427,28 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
 
   .kss-section {
     max-width: 1400px;
-    padding-top: ($kss-vertical-rhythm * 2);
+    margin-bottom: ($kss-vertical-rhythm * 2);
   }
 
   .kss-title {
     margin-bottom: 0;
   }
+
   .kss-title__ref {
-    color: #ccc;
+    color: #949494;
   }
-  .kss-title__permalink {
-    display: block;
-    color: #000;
-    text-decoration: none;
 
-    &:hover,
-    &:focus,
-    &:active {
-      color: $kss-colors-link;
-
-      @media screen and (min-width: 607px) {
-        .kss-title__permalink-hash {
-          display: inline;
-        }
-      }
-    }
-  }
-  .kss-title__permalink-hash {
-    display: none;
-    color: #ccc;
+  .kss-title__view-link {
+    width: 24px;
+    height: 24px;
+    background: url('view.svg') no-repeat 0 / 22px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 2px 5px 0 0;
+    cursor: pointer;
+    vertical-align: baseline;
+    display: inline-block;
   }
 
   .kss-title--level-1 {
@@ -492,16 +490,18 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
 
   .kss-modifier__wrapper {
     border: 1px solid $kss-colors-sidebar;
-    padding: 20px;
+    margin: $kss-vertical-rhythm 0;
+    position: relative;
   }
   .kss-modifier__heading {
     text-shadow: 1px 1px 1px #FFF;
-    margin: -20px -20px 20px -20px;
-    padding: 10px 10px 10px 20px;
-    background-color: $kss-colors-sidebar;
+    padding: 10px 10px 10px $kss-vertical-rhythm;
     color: $kss-colors-foreground;
     font-weight: bold;
+    border-bottom: 1px solid $kss-colors-sidebar;
+    background: $kss-colors-background;
   }
+
   .kss-modifier__default-name {
     font-weight: bold;
     margin-bottom: ($kss-vertical-rhythm / 2);
@@ -515,15 +515,7 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
     margin-bottom: ($kss-vertical-rhythm / 2);
   }
   .kss-modifier__example {
-    clear: left;
-    padding: 1px 0; // Contain the example's margins.
-    position: relative; // Contain the example's absolute positioning.
-    margin: 0 0 ($kss-vertical-rhythm - 1px) 0;
-    overflow: visible;
-
-    &:last-child {
-      margin: 0;
-    }
+    padding: $kss-vertical-rhythm;
   }
 
   .kss-markup {
@@ -630,62 +622,52 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   }
 
   // ------------------------------------------------------------------------------
-  //   group prettyprint.js styling
+  // Hide all elements
   // ------------------------------------------------------------------------------
-  /* Pretty printing styles. Used with prettify.js. */
 
-  /* SPAN elements with the classes below are added by prettyprint. */
-  .pln { color: #000 }  /* plain text */
+  &.kss--hide-all {
+    margin-bottom: 60px;
 
-  .str { color: #080 }  /* string content */
-  .kwd { color: #008 }  /* a keyword */
-  .com { color: #800 }  /* a comment */
-  .typ { color: #606 }  /* a type name */
-  .lit { color: #066 }  /* a literal value */
-  /* punctuation, lisp open bracket, lisp close bracket */
-  .pun, .opn, .clo { color: #660 }
-  .tag { color: #008 }  /* a markup tag name */
-  .atn { color: #606 }  /* a markup attribute name */
-  .atv { color: #080 }  /* a markup attribute value */
-  .dec, .var { color: #606 }  /* a declaration; a variable name */
-  .fun { color: red }  /* a function name */
-
-  /* Use higher contrast and text-weight for printable form. */
-  @media print, projection {
-    .str { color: #060 }
-    .kwd { color: #006; font-weight: bold }
-    .com { color: #600; font-style: italic }
-    .typ { color: #404; font-weight: bold }
-    .lit { color: #044 }
-    .pun, .opn, .clo { color: #440 }
-    .tag { color: #006; font-weight: bold }
-    .atn { color: #404 }
-    .atv { color: #060 }
-  }
-
-  /* Specify class=linenums on a pre to get line numbering */
-  ol.linenums {
-    margin: 0;
-    padding: 0 0 3px 0;
-    list-style-type: none;
-
-    li {
-      min-height: $kss-vertical-rhythm;
-      border-bottom: 1px solid #eee;
-      padding: 0 20px;
-      background: #fff;
-
-      &:first-child {
-        padding-top: 3px;
-      }
+    @media screen and (max-width: 769px) {
+      margin-bottom: 0;
     }
-    /* Alternate shading for lines */
-    li.L0,
-    li.L2,
-    li.L4,
-    li.L6,
-    li.L8 {
-      background: #fcfcfc;
+
+    .kss-header,
+    .kss-sidebar,
+    .kss-modifier__heading,
+    .kss-description,
+    .kss-title__view-link,
+    .kss-offscreen__toggle,
+    .kss-markup {
+      display: none;
+    }
+
+    .kss-section,
+    .kss-main,
+    .kss-offscreen__inner,
+    .kss-modifier__wrapper,
+    .kss-modifier__example {
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      max-width: none;
+    }
+
+    .kss-title {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      border-top: 1px solid $kss-colors-sidebar;
+      padding: 14px 20px;
+      background: #fff;
+      z-index: 9999;
+      margin: 0;
+      height: 60px;
+
+      @media screen and (max-width: 769px) {
+        display: none;
+      }
     }
   }
 }
