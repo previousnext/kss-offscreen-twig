@@ -6,16 +6,19 @@
 
   <meta name="description" content="">
   <meta name="generator" content="kss-node">
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" href="kss-assets/kss.css">
+  {% if options.highlightSyntax %}
+    <link rel="stylesheet" href="kss-assets/syntax-highlighting/prism.css">
+  {% endif %}
   {{ styles|raw }}
 </head>
 <body id="kss-node" class="kss-offscreen is-moved">
+<a id="kss-offscreen-toggle" class="kss-offscreen__toggle is-active" aria-expanded="true" aria-controls="offscreen-item" role="button">Open or Close the menu</a>
 <div class="kss-offscreen__inner">
   <header class="kss-header">
     <h1 class="kss-doc-title">{{ options.title }}</h1>
-    <a id="kss-offscreen-toggle" class="kss-offscreen__toggle is-active" aria-expanded="true" aria-controls="offscreen-item" role="button">Open or close the menu</a>
   </header>
 <div class="kss-sidebar kss-offscreen__item" id="offscreen-item">
 
@@ -56,12 +59,12 @@
 </div>
 
 <article role="main" class="kss-main">
-{% if homepage %}
-  <div id="kssref-0" class="kss-section kss-section--depth-0 kss-overview kss-style">
-    {{ homepage|raw }}
-  </div>
-{% else %}
-
+  <div class="kss-offscreen__nav-backdrop" id="kss-offscreen-item-backdrop"></div>
+  {% if homepage %}
+    <div id="kssref-0" class="kss-section kss-section--depth-0 kss-overview kss-style">
+      {{ homepage|raw }}
+    </div>
+  {% else %}
   {#
     Display each section, in order.
 
@@ -135,6 +138,18 @@
             </div>
           </div>
         {% endfor %}
+        {% if section.markup and options.showMarkup %}
+          <details class="kss-markup kss-style">
+            <summary>
+              {% if section.markupFile %}
+                Markup: <code>{{ section.markupFile }}</code>
+              {% else %}
+                Markup
+              {% endif %}
+            </summary>
+            <pre class="{{ options.markupClass|default('language-html') }}"><code class="{{ options.markupClass|default('language-html') }}">{{ section.markup|escape('html') }}</code></pre>
+          </details>
+        {% endif %}
       {% endif %}
 
       {% if section.sourceFile.name %}
@@ -176,6 +191,8 @@
     <a href="https://github.com/kss-node/kss-node"><img src="kss-assets/github-fork--black.png" alt="Fork me on GitHub"></a>
   </footer>
 {% endif %}
-
+{% if options.highlightSyntax %}
+  <script src="kss-assets/syntax-highlighting/prism.js"></script>
+{% endif %}
 </body>
 </html>
