@@ -89,10 +89,6 @@
         {% if section.description %}
           <div class="kss-description">
             {{ section.description|raw }}
-
-            {% if section.markupFile %}
-              <p>Twig: <code>{{ section.markupFile }}</code></p>
-            {% endif %}
           </div>
         {% endif %}
 
@@ -184,13 +180,6 @@
 <script src="kss-assets/kss.autocomplete.js"></script>
 {{ scripts|raw }}
 
-{# This will only be included in the demo page. #}
-{% if options.demo %}
-  <footer class="kss-github">
-    <!-- https://github.com/blog/273-github-ribbons -->
-    <a href="https://github.com/kss-node/kss-node"><img src="kss-assets/github-fork--black.png" alt="Fork me on GitHub"></a>
-  </footer>
-{% endif %}
 {% if options.highlightSyntax %}
   <script src="kss-assets/syntax-highlighting/prism.js"></script>
 {% endif %}

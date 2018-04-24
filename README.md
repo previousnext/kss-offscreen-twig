@@ -29,3 +29,6 @@ Changelog:
 * Component modifiers display as seperate examples, with less prominent KSS chrome.
 * Component modifier CSS classes are no longer visible.
 * Header no longer sticks.
+* Specify showMarkup, highlightSyntax, markupClass from config.
+* Fix position of menu toggle button.
+* Add sidebar backdrop for small screens when clicked closes menu.

@@ -56,12 +56,11 @@ class KssBuilderTwig extends KssBuilderBaseTwig {
         multiple: false,
         describe: 'Title of the style guide',
         default: 'KSS Style Guide',
-      },
-      verbose: {},
+      }
     }).addOptions({
       showMarkup: true,
       markupClass: 'language-html',
-      highlightSyntax: true
+      highlightSyntax: true,
     });
   }
 }
