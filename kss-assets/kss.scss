@@ -1,24 +1,25 @@
 // ------------------------------------------------------------------------------
 //   Variables - Colors, Fonts, etc.
 // ------------------------------------------------------------------------------
-$kss-colors-background    : #fff;
+$kss-colors-background        : #fff;
 
-$kss-colors-foreground    : #444;
-$kss-colors-heading       : #111;
-$kss-colors-quotes        : #666;
-$kss-colors-sidebar       : #ecf1f3;
-$kss-colors-border        : #c4d0d6;
+$kss-colors-foreground        : #444;
+$kss-colors-foreground-light  : #eee;
+$kss-colors-heading           : #111;
+$kss-colors-quotes            : #666;
+$kss-colors-sidebar           : #ecf1f3;
+$kss-colors-border            : #c4d0d6;
 
-$kss-colors-link          : #0645ad;
-$kss-colors-link-visited  : #0645ad;
-$kss-colors-link-hover    : lighten($kss-colors-link, 20%);
-$kss-colors-link-active   : #faa700;
+$kss-colors-link              : #0645ad;
+$kss-colors-link-visited      : #0645ad;
+$kss-colors-link-hover        : lighten($kss-colors-link, 20%);
+$kss-colors-link-active       : #faa700;
 
-$kss-font-body            : Helvetica, 'Helvetica Neue', Arial, sans-serif;
-$kss-font-code            : Menlo, 'Ubuntu Mono', 'Lucida Console', 'Courier New', Courier, monospace;
+$kss-font-body                : Helvetica, 'Helvetica Neue', Arial, sans-serif;
+$kss-font-code                : Menlo, 'Ubuntu Mono', 'Lucida Console', 'Courier New', Courier, monospace;
 
-$kss-font-size            : 16px;
-$kss-vertical-rhythm      : $kss-font-size * 1.5;
+$kss-font-size                : 16px;
+$kss-vertical-rhythm          : $kss-font-size * 1.5;
 
 // ------------------------------------------------------------------------------
 // Wrap all of this builder's base HTML styling inside a .kss-style selector.
@@ -177,7 +178,6 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   }
 
   .kss-doc-title {
-    padding-left: 40px;
     color: #fff;
     font-size: 1.5em;
     line-height: 24px;
@@ -236,6 +236,17 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
     width: 290px;
   }
 
+  .kss-offscreen__nav-backdrop {
+    position: fixed;
+    background: rgba(0,0,0,0.5);
+    left: 290px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 2000;
+    display: none;
+  }
+
   .kss-offscreen__toggle {
     border: 0;
     padding: 0;
@@ -243,19 +254,25 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
     display: inline-block;
     cursor: pointer;
     text-decoration: none;
-    width: 24px;
-    height: 24px;
-    position: absolute;
-    top: 22px;
-    left: 20px;
+    position: fixed;
+    left: auto;
+    right: 20px;
     text-indent: 100%;
     white-space: nowrap;
     overflow: hidden;
     background-repeat: no-repeat;
     background-image: url(toggle-icon.svg);
+    background-color: #222;
+    z-index: 100;
+    background-position: 4px 6px;
+    width: 32px;
+    height: 32px;
+    top: 14px;
   }
   .kss-offscreen__toggle.is-active {
-    background-position: 100% 0;
+    background-position: -24px 6px;
+    width: 32px;
+    height: 32px;
   }
 }
 
@@ -274,6 +291,12 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
 
   .kss-offscreen__item {
     left: 0;
+  }
+
+  .kss-offscreen__nav-backdrop {
+    @media (max-width: 768px) {
+      display: block;
+    }
   }
 }
 
@@ -599,67 +622,6 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
   }
 
   // ------------------------------------------------------------------------------
-  //   group prettyprint.js styling
-  // ------------------------------------------------------------------------------
-  /* Pretty printing styles. Used with prettify.js. */
-
-  /* SPAN elements with the classes below are added by prettyprint. */
-  .pln { color: #000 }  /* plain text */
-
-  .str { color: #080 }  /* string content */
-  .kwd { color: #008 }  /* a keyword */
-  .com { color: #800 }  /* a comment */
-  .typ { color: #606 }  /* a type name */
-  .lit { color: #066 }  /* a literal value */
-  /* punctuation, lisp open bracket, lisp close bracket */
-  .pun, .opn, .clo { color: #660 }
-  .tag { color: #008 }  /* a markup tag name */
-  .atn { color: #606 }  /* a markup attribute name */
-  .atv { color: #080 }  /* a markup attribute value */
-  .dec, .var { color: #606 }  /* a declaration; a variable name */
-  .fun { color: red }  /* a function name */
-
-  /* Use higher contrast and text-weight for printable form. */
-  @media print, projection {
-    .str { color: #060 }
-    .kwd { color: #006; font-weight: bold }
-    .com { color: #600; font-style: italic }
-    .typ { color: #404; font-weight: bold }
-    .lit { color: #044 }
-    .pun, .opn, .clo { color: #440 }
-    .tag { color: #006; font-weight: bold }
-    .atn { color: #404 }
-    .atv { color: #060 }
-  }
-
-  /* Specify class=linenums on a pre to get line numbering */
-  ol.linenums {
-    margin: 0;
-    padding: 0 0 3px 0;
-    list-style-type: none;
-
-    li {
-      min-height: $kss-vertical-rhythm;
-      border-bottom: 1px solid #eee;
-      padding: 0 20px;
-      background: #fff;
-
-      &:first-child {
-        padding-top: 3px;
-      }
-    }
-    /* Alternate shading for lines */
-    li.L0,
-    li.L2,
-    li.L4,
-    li.L6,
-    li.L8 {
-      background: #fcfcfc;
-    }
-  }
-
-
-  // ------------------------------------------------------------------------------
   // Hide all elements
   // ------------------------------------------------------------------------------
 
@@ -674,7 +636,9 @@ $kss-vertical-rhythm      : $kss-font-size * 1.5;
     .kss-sidebar,
     .kss-modifier__heading,
     .kss-description,
-    .kss-title__view-link {
+    .kss-title__view-link,
+    .kss-offscreen__toggle,
+    .kss-markup {
       display: none;
     }
 
