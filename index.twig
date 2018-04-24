@@ -89,6 +89,10 @@
         {% if section.description %}
           <div class="kss-description">
             {{ section.description|raw }}
+
+            {% if section.markupFile %}
+              <p>Twig: <code>{{ section.markupFile }}</code></p>
+            {% endif %}
           </div>
         {% endif %}
 
@@ -136,13 +140,7 @@
         {% endfor %}
         {% if section.markup and options.showMarkup %}
           <details class="kss-markup kss-style">
-            <summary>
-              {% if section.markupFile %}
-                Markup: <code>{{ section.markupFile }}</code>
-              {% else %}
-                Markup
-              {% endif %}
-            </summary>
+            <summary>Markup</summary>
             <pre class="{{ options.markupClass|default('language-html') }}"><code class="{{ options.markupClass|default('language-html') }}">{{ section.markup|escape('html') }}</code></pre>
           </details>
         {% endif %}
@@ -178,6 +176,7 @@
 <script src="kss-assets/kss.hideAll.js"></script>
 <script src="kss-assets/kss.offscreen.js"></script>
 <script src="kss-assets/kss.autocomplete.js"></script>
+<script src="kss-assets/details-element-polyfill.min.js"></script>
 {{ scripts|raw }}
 
 {% if options.highlightSyntax %}
