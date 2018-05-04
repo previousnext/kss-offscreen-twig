@@ -61,6 +61,7 @@ class KssBuilderTwig extends KssBuilderBaseTwig {
       showMarkup: true,
       markupClass: 'language-html',
       highlightSyntax: true,
+      exampleClass: '',
     });
   }
 }

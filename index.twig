@@ -123,7 +123,7 @@
           <div class="kss-modifier__heading kss-style">
             {% if section.modifiers is not empty %}Default example{% else %}Example{% endif %}
           </div>
-          <div class="kss-modifier__example">
+          <div class="kss-modifier__example {{ options.exampleClass|default('') }}">
             {{ section.example|raw }}
           </div>
         </div>
@@ -133,7 +133,7 @@
             <div class="kss-modifier__heading kss-style">
               {{ modifier.description|raw }}
             </div>
-            <div class="kss-modifier__example">
+            <div class="kss-modifier__example {{ options.exampleClass|default('') }}">
               {{ modifier.markup|raw }}
             </div>
           </div>
