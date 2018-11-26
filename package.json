@@ -1,8 +1,8 @@
 {
   "name": "kss-offscreen-twig",
   "author": "PreviousNext",
-  "license": "(MIT OR GPL-2.0)",
-  "version": "1.0.2",
+  "license": "MIT",
+  "version": "2.0.0-alpha.9",
   "description": "A custom twig buidler for KSS node with an offscreen menu and search.",
   "main": "builder.js",
   "repository": {
@@ -14,6 +14,12 @@
     "sass": "./node_modules/.bin/node-sass --output-style compressed kss-assets/kss.scss kss-assets/kss.css"
   },
   "devDependencies": {
-    "node-sass": "^3.4.2"
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.18.0",
+    "del": "^2.2.2",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-sass": "^3.0.0",
+    "gulp-sass-lint": "^1.3.2",
+    "kss": "^3.0.0-beta.18"
   }
 }

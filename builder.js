@@ -24,7 +24,7 @@ let KssBuilderBaseTwig;
 try {
   // In order for a builder to be "kss clone"-able, it must use the
   // require('kss/builder/path') syntax.
-  KssBuilderBaseTwig = require('kss/builder/base/twig');
+  KssBuilderBaseTwig = require('../kss/builder/base/twig');
 } catch (e) {
   // The above require() line will always work.
   //
@@ -55,8 +55,13 @@ class KssBuilderTwig extends KssBuilderBaseTwig {
         string: true,
         multiple: false,
         describe: 'Title of the style guide',
-        default: 'KSS Style Guide'
+        default: 'KSS Style Guide',
       }
+    }).addOptions({
+      showMarkup: true,
+      markupClass: 'language-html',
+      highlightSyntax: true,
+      exampleClass: '',
     });
   }
 }

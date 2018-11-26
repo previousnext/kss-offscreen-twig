@@ -6,24 +6,25 @@
 
   <meta name="description" content="">
   <meta name="generator" content="kss-node">
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" href="kss-assets/kss.css">
+  {% if options.highlightSyntax %}
+    <link rel="stylesheet" href="kss-assets/syntax-highlighting/prism.css">
+  {% endif %}
   {{ styles|raw }}
 </head>
-<body id="kss-node" class="kss-offscreen kss-fullscreen is-moved">
-
-<header class="kss-header">
-  <h1 class="kss-doc-title">{{ options.title }}</h1>
-  <a class="kss-offscreen__toggle is-active" aria-expanded="true" aria-controls="offscreen-item" role="button">Open or close the menu</a>
-</header>
+<body id="kss-node" class="kss-offscreen is-moved">
+<a id="kss-offscreen-toggle" class="kss-offscreen__toggle is-active" aria-expanded="true" aria-controls="offscreen-item" role="button">Open or Close the menu</a>
 <div class="kss-offscreen__inner">
-
-<div class="kss-sidebar kss-offscreen__item" id="offscreen-item">
+  <header class="kss-style kss-header">
+    <h1 class="kss-doc-title">{{ options.title }}</h1>
+  </header>
+<div class="kss-style kss-sidebar kss-offscreen__item" id="offscreen-item">
 
   <div class="kss-search">
     <label for="kss-search" style="display: none;">Search</label>
-    <input id="kss-search" type="text" />
+    <input id="kss-search" name="kss-search" type="text" placeholder="Search components" title="Quick search" />
   </div>
 
   <nav class="kss-nav">
@@ -58,35 +59,40 @@
 </div>
 
 <article role="main" class="kss-main">
-{% if homepage %}
-  <div id="kssref-0" class="kss-section kss-section--depth-0 kss-overview kss-style">
-    {{ homepage|raw }}
-  </div>
-{% else %}
-
+  <div class="kss-offscreen__nav-backdrop" id="kss-offscreen-item-backdrop"></div>
+  {% if homepage %}
+    <div id="kssref-0" class="kss-section kss-section--depth-0 kss-overview kss-style">
+      {{ homepage|raw }}
+    </div>
+  {% else %}
   {#
     Display each section, in order.
 
     The "root" element comes first in this loop, and can be detected using the
     "loop.first" variable as seen below.
   #}
+  {% set hide_example = false %}
   {% for section in sections %}
     {% set sectionElement = loop.first ? 'div' : 'section' %}
+    {% if section.header == 'Mockups' or section.header == 'Templates' %}
+      {% set hide_example = true %}
+    {% endif %}
     <{{ sectionElement }} id="kssref-{{ section.referenceURI }}" class="kss-section kss-section--depth-{{ section.depth }}">
       <div class="kss-style">
         {% set headerElement = (section.depth > 6) ? 'h6' : 'h' ~ section.depth %}
         <{{ headerElement }} class="kss-title kss-title--level-{{ section.depth }}">
-          <a class="kss-title__permalink" href="#kssref-{{ section.referenceURI }}">
-            <span class="kss-title__ref">
-              {{ section.referenceNumber }}
-            </span>
-            {{ section.header }}
-          </a>
+          <a class="kss-title__ref" href="#kssref-{{ section.referenceURI }}">{{ section.referenceNumber }}</a>
+          {{ section.header }}
+          {% if section.depth != 1 %}<a href="item-{{ section.referenceURI }}.html?hideAll" target="_blank" class="kss-title__view-link">View in a new window</a>{% endif %}
         </{{ headerElement }}>
 
         {% if section.description %}
           <div class="kss-description">
             {{ section.description|raw }}
+
+            {% if section.markupFile %}
+              <p>Twig: <code>{{ section.markupFile }}</code></p>
+            {% endif %}
           </div>
         {% endif %}
 
@@ -112,39 +118,30 @@
         {% endfor %}
       </div>
 
-      {% if section.example %}
+      {% if section.example and not hide_example %}
         <div class="kss-modifier__wrapper">
           <div class="kss-modifier__heading kss-style">
-            Example{% if section.modifiers is not empty %}s{% endif %}
-            <a href="#kssref-{{ section.referenceURI }}" data-kss-fullscreen="kssref-{{ section.referenceURI }}" class="kss-fullscreen__button">Full screen</a>
+            {% if section.modifiers is not empty %}Default example{% else %}Example{% endif %}
           </div>
-
-          {% if section.modifiers is not empty %}
-            <div class="kss-modifier__default-name kss-style">
-              Default styling
-            </div>
-          {% endif %}
-
-          <div class="kss-modifier__example">
+          <div class="kss-modifier__example {{ options.exampleClass|default('') }}">
             {{ section.example|raw }}
           </div>
+        </div>
 
-          {% for modifier in section.modifiers %}
-            <div class="kss-modifier__name kss-style">
-              {{ modifier.name }}
-            </div>
-            <div class="kss-modifier__description kss-style">
+        {% for modifier in section.modifiers %}
+          <div class="kss-modifier__wrapper">
+            <div class="kss-modifier__heading kss-style">
               {{ modifier.description|raw }}
             </div>
-            <div class="kss-modifier__example">
+            <div class="kss-modifier__example {{ options.exampleClass|default('') }}">
               {{ modifier.markup|raw }}
             </div>
-          {% endfor %}
-        </div>
-        {% if section.markup %}
+          </div>
+        {% endfor %}
+        {% if section.markup and options.showMarkup %}
           <details class="kss-markup kss-style">
             <summary>Markup</summary>
-            <pre class="prettyprint linenums lang-html"><code data-language="html">{{ section.markup|escape('html') }}</code></pre>
+            <pre class="{{ options.markupClass|default('language-html') }}"><code class="{{ options.markupClass|default('language-html') }}">{{ section.markup|escape('html') }}</code></pre>
           </details>
         {% endif %}
       {% endif %}
@@ -162,10 +159,10 @@
 
 <ul id="kss-toc" style="display: none;">
   {% for menu_item in menu %}
-    <li data-url="./section-{{ menu_item.referenceURI }}.html#kssref-{{ menu_item.referenceURI }}" data-name="{{ menu_item.header }}"></li>
+    <li data-url="section-{{ menu_item.referenceURI }}.html#kssref-{{ menu_item.referenceURI }}" data-name="{{ menu_item.referenceNumber }} {{ menu_item.header }}"></li>
     {% if menu_item.children is not empty %}
       {% for menu_child in menu_item.children %}
-        <li data-url="./section-{{ menu_item.referenceURI }}.html#kssref-{{ menu_child.referenceURI }}" data-name="{{ menu_child.header }}"></li>
+        <li data-url="section-{{ menu_item.referenceURI }}.html#kssref-{{ menu_child.referenceURI }}" data-name="{{ menu_child.referenceNumber }} {{ menu_child.header }}"></li>
       {% endfor %}
     {% endif %}
   {% endfor %}
@@ -174,31 +171,16 @@
 </div>
 
 <!-- SCRIPTS -->
+<script src="kss-assets/auto-complete.min.js"></script>
 <script src="kss-assets/kss.js"></script>
-<script src="kss-assets/scrollspy.js"></script>
-<script src="kss-assets/prettify.js"></script>
-<script src="kss-assets/jquery.min.js"></script>
-<script src="kss-assets/jquery.easy-autocomplete.min.js"></script>
-<script src="kss-assets/details-element-polyfill.js"></script>
-<script src="kss-assets/offscreen.js"></script>
-<script src="kss-assets/fullscreen.js"></script>
-<script src="kss-assets/search.js"></script>
-<script>
-  prettyPrint();
-  var spy = new ScrollSpy('#kss-node', {
-    nav: '.kss-nav__menu-child > li > a',
-    className: 'is-in-viewport'
-  });
-</script>
+<script src="kss-assets/kss.hideAll.js"></script>
+<script src="kss-assets/kss.offscreen.js"></script>
+<script src="kss-assets/kss.autocomplete.js"></script>
+<script src="kss-assets/details-element-polyfill.min.js"></script>
 {{ scripts|raw }}
 
-{# This will only be included in the demo page. #}
-{% if options.demo %}
-  <footer class="kss-github">
-    <!-- https://github.com/blog/273-github-ribbons -->
-    <a href="https://github.com/kss-node/kss-node"><img src="kss-assets/github-fork--black.png" alt="Fork me on GitHub"></a>
-  </footer>
+{% if options.highlightSyntax %}
+  <script src="kss-assets/syntax-highlighting/prism.js"></script>
 {% endif %}
-
 </body>
 </html>
