@@ -550,6 +550,53 @@ $kss-vertical-rhythm          : $kss-font-size * 1.5;
     border-radius: 0;
   }
 
+  .kss-color {
+    line-height: 50px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+
+    &__wrapper {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    &__swatch {
+      display: inline-block;
+      border: 2px solid rgba($kss-colors-foreground, 0.1);
+      border-radius: 100%;
+      height: 50px;
+      width: 50px;
+      margin-right: 10px;
+    }
+
+    &__name {
+      margin-right: 10px;
+    }
+
+    &__value {
+      color: $kss-colors-quotes;
+
+      code {
+        color: inherit;
+      }
+
+      &::before {
+        content: '\2192\ ';
+        font-family: sans-serif;
+      }
+    }
+
+    &__description {
+      color: $kss-colors-quotes;
+      display: block;
+      position: relative;
+      top: -12px;
+      line-height: 25px;
+    }
+  }
+
   .kss-source {
     font-size: 80%;
   }

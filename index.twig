@@ -96,6 +96,25 @@
           </div>
         {% endif %}
 
+        {% if section.colors %}
+          <ul class="kss-color__wrapper">
+            {% for color in section.colors %}
+              <li class="kss-color">
+                <div class="kss-color__swatch" style="background-color:{{ color.color }}"></div>
+                <div class="kss-color__details">
+                  {% if color.name %}
+                    <strong class="kss-color__name">{{ color.name }}</strong>
+                  {% endif %}
+                  <span class="kss-color__value"><code>{{ color.color }}</code></span>
+                  {% if color.description %}
+                    <span class="kss-color__description">{{ color.description }}</span>
+                  {% endif %}
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
         {% for parameter in section.parameters %}
           {% if loop.first %}
             <div class="kss-parameters__title">Parameters:</div>
