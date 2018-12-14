@@ -46,7 +46,7 @@ $kss-vertical-rhythm          : $kss-font-size * 1.5;
     &:hover,
     &:active {
       outline: 0;
-      background: none;
+      background-color: transparent;
     }
   }
 
@@ -609,6 +609,15 @@ $kss-vertical-rhythm          : $kss-font-size * 1.5;
     samp,
     code {
       background-color: $kss-colors-sidebar;
+    }
+
+
+    pre[class*="language-"] {
+      background-color: #272822;
+    }
+
+    code[class*="language-"] {
+      background-color: transparent;
     }
   }
 
