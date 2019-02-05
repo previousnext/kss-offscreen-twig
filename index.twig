@@ -14,192 +14,229 @@
   {% endif %}
   {{ styles|raw }}
 </head>
-<body id="kss-node" class="kss-offscreen is-moved">
-<a id="kss-offscreen-toggle" class="kss-offscreen__toggle is-active" aria-expanded="true" aria-controls="offscreen-item" role="button">Open or Close the menu</a>
-<div class="kss-offscreen__inner">
-  <header class="kss-style kss-header">
-    <h1 class="kss-doc-title">{{ options.title }}</h1>
-  </header>
-<div class="kss-style kss-sidebar kss-offscreen__item" id="offscreen-item">
+<body id="kss-node">
+{#
+  Calculate some information about the sections.
+#}
+{% set item = false %}
+{% for section in sections %}
+  {#
+    The section type can be used to differentiate examples.
+  #}
+  {% set section_type = 'components' %}
+  {% if section.header == 'Mockups' or section.header == 'Templates' %}
+    {% set section_type = 'templates' %}
+  {% endif %}
+  {% if section.header == 'Base' or section.header == 'Elements' %}
+    {% set section_type = 'elements' %}
+  {% endif %}
+  {#
+      If it's the only thing in the loop it's an item URL
+      and it should only show the item markup so it can be used
+      inside an iframe.
+    #}
+  {% if loop.first and loop.last %}
+    {% set item = true %}
+  {% endif %}
+{% endfor %}
 
-  <div class="kss-search">
-    <label for="kss-search" style="display: none;">Search</label>
-    <input id="kss-search" name="kss-search" type="text" placeholder="Search components" title="Quick search" />
-  </div>
 
+{% if item %}
+  {% for section in sections %}
+    <div class="{{ options.exampleClass|default('') }}">
+     {{ section.example|raw }}
+    </div>
+    {% for modifier in section.modifiers %}
+      <div class="kss-style">{{ modifier.description }}</div>
+      <div class="{{ options.exampleClass|default('') }}">
+        {{ modifier.markup|raw }}
+      </div>
+    {% endfor %}
+  {% endfor %}
+{% else %}
+<div class="kss-wrapper">
+<header class="kss-style kss-header">
+  <a class="kss-doc-title" href="./">
+    {{ options.title }}
+  </a>
   <nav class="kss-nav">
     <ul class="kss-nav__menu">
-      <li class="kss-nav__menu-item">
-        <a class="kss-nav__menu-link" href="./">
-          <span class="kss-nav__ref">0</span
-          ><span class="kss-nav__name">Overview</span>
-        </a>
-      </li>
-    {% for menu_item in menu %}
-      <li class="kss-nav__menu-item">
+      {% for menu_item in menu %}
+      <li class="kss-nav__menu-item {% if menu_item.isActive %}kss-nav__menu-item--active{% endif %}">
         <a class="kss-nav__menu-link" href="section-{{ menu_item.referenceURI }}.html">
-          <span class="kss-nav__ref">{{ menu_item.referenceNumber }}</span><span class="kss-nav__name">{{ menu_item.header }}</span>
+          {{ menu_item.header }}
         </a>
         {% if menu_item.isActive and menu_item.children is not empty %}
-            <ul class="kss-nav__menu-child">
+          <ul class="kss-nav__menu-child">
             {% for menu_child in menu_item.children %}
-              <li class="kss-nav__menu-item {% if menu_child.isGrandChild %}kss-nav__menu-subchild{% endif %}">
-                <a class="kss-nav__menu-link" href="section-{{ menu_item.referenceURI }}.html#kssref-{{ menu_child.referenceURI }}">
-                  <span class="kss-nav__ref {% if menu_child.isGrandChild %}kss-nav__ref-child{% endif %}">{{ menu_child.referenceNumber }}</span
-                  ><span class="kss-nav__name">{{ menu_child.header }}</span>
-                </a>
-              </li>
-            {% endfor %}
-            </ul>
-          {% endif %}
-      </li>
-    {% endfor %}
-    </ul>
-  </nav>
-</div>
-
-<article role="main" class="kss-main">
-  <div class="kss-offscreen__nav-backdrop" id="kss-offscreen-item-backdrop"></div>
-  {% if homepage %}
-    <div id="kssref-0" class="kss-section kss-section--depth-0 kss-overview kss-style">
-      {{ homepage|raw }}
-    </div>
-  {% else %}
-  {#
-    Display each section, in order.
-
-    The "root" element comes first in this loop, and can be detected using the
-    "loop.first" variable as seen below.
-  #}
-  {% set hide_example = false %}
-  {% for section in sections %}
-    {% set sectionElement = loop.first ? 'div' : 'section' %}
-    {% if section.header == 'Mockups' or section.header == 'Templates' %}
-      {% set hide_example = true %}
-    {% endif %}
-    <{{ sectionElement }} id="kssref-{{ section.referenceURI }}" class="kss-section kss-section--depth-{{ section.depth }}">
-      <div class="kss-style">
-        {% set headerElement = (section.depth > 6) ? 'h6' : 'h' ~ section.depth %}
-        <{{ headerElement }} class="kss-title kss-title--level-{{ section.depth }}">
-          <a class="kss-title__ref" href="#kssref-{{ section.referenceURI }}">{{ section.referenceNumber }}</a>
-          {{ section.header }}
-          {% if section.depth != 1 %}<a href="item-{{ section.referenceURI }}.html?hideAll" target="_blank" class="kss-title__view-link">View in a new window</a>{% endif %}
-        </{{ headerElement }}>
-
-        {% if section.description %}
-          <div class="kss-description">
-            {{ section.description|raw }}
-
-            {% if section.markupFile %}
-              <p>Twig: <code>{{ section.markupFile }}</code></p>
-            {% endif %}
-          </div>
-        {% endif %}
-
-        {% if section.colors %}
-          <ul class="kss-color__wrapper">
-            {% for color in section.colors %}
-              <li class="kss-color">
-                <div class="kss-color__swatch" style="background-color:{{ color.color }}"></div>
-                <div class="kss-color__details">
-                  {% if color.name %}
-                    <strong class="kss-color__name">{{ color.name }}</strong>
-                  {% endif %}
-                  <span class="kss-color__value"><code>{{ color.color }}</code></span>
-                  {% if color.description %}
-                    <span class="kss-color__description">{{ color.description }}</span>
-                  {% endif %}
-                </div>
-              </li>
+              {% if not menu_child.isGrandChild %}
+                <li class="kss-nav__menu-child-item {% if menu_child.isActive %}kss-nav__menu-child-item--active{% endif %}">
+                  <a class="kss-nav__menu-link" href="section-{{ menu_item.referenceURI }}.html#kssref-{{ menu_child.referenceURI }}">
+                    {{ menu_child.header }}
+                  </a>
+                </li>
+              {% endif %}
             {% endfor %}
           </ul>
         {% endif %}
-
-        {% for parameter in section.parameters %}
-          {% if loop.first %}
-            <div class="kss-parameters__title">Parameters:</div>
-            <ul class="kss-parameters">
-          {% endif %}
-            <li class="kss-parameters__item">
-              <div class="kss-parameters__name"><code>{{ parameter.name }}</code></div>
-              <div class="kss-parameters__description">
-                {{ parameter.description|raw }}
-                {% if parameter.defaultValue %}
-                  <div class="kss-parameters__default-value">
-                    Defaults to: <code>{{ parameter.defaultValue }}</code>
-                  </div>
-                {% endif %}
-              </div>
-            </li>
-          {% if loop.last %}
-            </ul>
-          {% endif %}
-        {% endfor %}
-      </div>
-
-      {% if section.example and not hide_example %}
-        <div class="kss-modifier__wrapper">
-          <div class="kss-modifier__heading kss-style">
-            {% if section.modifiers is not empty %}Default example{% else %}Example{% endif %}
-          </div>
-          <div class="kss-modifier__example {{ options.exampleClass|default('') }}">
-            {{ section.example|raw }}
-          </div>
-        </div>
-
-        {% for modifier in section.modifiers %}
-          <div class="kss-modifier__wrapper">
-            <div class="kss-modifier__heading kss-style">
-              {{ modifier.description|raw }}
-            </div>
-            <div class="kss-modifier__example {{ options.exampleClass|default('') }}">
-              {{ modifier.markup|raw }}
-            </div>
-          </div>
-        {% endfor %}
-        {% if section.markup and options.showMarkup %}
-          <details class="kss-markup kss-style">
-            <summary>Markup</summary>
-            <pre class="{{ options.markupClass|default('language-html') }}"><code class="{{ options.markupClass|default('language-html') }}">{{ section.markup|escape('html') }}</code></pre>
-          </details>
-        {% endif %}
-      {% endif %}
-
-      {% if section.sourceFile.name %}
-        <div class="kss-source kss-style">
-          Source: <code>{{ section.sourceFile.name }}</code>, line {{ section.sourceFile.line }}
-        </div>
-      {% endif %}
-    </{{ sectionElement }}>
-  {% endfor %}
-{% endif %}
-</article>
-
-
-<ul id="kss-toc" style="display: none;">
-  {% for menu_item in menu %}
-    <li data-url="section-{{ menu_item.referenceURI }}.html#kssref-{{ menu_item.referenceURI }}" data-name="{{ menu_item.referenceNumber }} {{ menu_item.header }}"></li>
-    {% if menu_item.children is not empty %}
-      {% for menu_child in menu_item.children %}
-        <li data-url="section-{{ menu_item.referenceURI }}.html#kssref-{{ menu_child.referenceURI }}" data-name="{{ menu_child.referenceNumber }} {{ menu_child.header }}"></li>
+      </li>
       {% endfor %}
-    {% endif %}
-  {% endfor %}
-</ul>
+    </ul>
+  </nav>
+</header>
 
+<main role="main" class="kss-main">
+  {% if homepage %}
+    <div class="kss-section kss-overview kss-style">
+      {{ homepage|raw }}
+    </div>
+  {% else %}
+    {% for section in sections %}
+
+      {% if section.depth == 1 %}
+        {#
+          Top level sections have only desctptions.
+        #}
+        <div class="kss-style">
+          <h1>{{ section.header }}</h1>
+          {% if section.description %}
+            <div class="kss-description">
+              {{ section.description|raw }}
+            </div>
+          {% endif %}
+        </div>
+      {% else %}
+        {#
+          Anything deeper is an actual example.
+        #}
+        <section id="kssref-{{ section.referenceURI }}" class="kss-section kss-section--depth-{{ section.depth }} kss-section--type-{{ section_type }} {% if section.example %}kss-section--has-example{% endif %}">
+          <div class="kss-style kss-section__header">
+            {% set headerElement = (section.depth > 6) ? 'h6' : 'h' ~ section.depth %}
+            <{{ headerElement }} class="kss-title kss-title--level-{{ section.depth }}">
+              {{ section.header }}
+              <a class="kss-title__ref" href="#kssref-{{ section.referenceURI }}">{{ section.referenceNumber }}</a>
+            </{{ headerElement }}>
+
+            {% if section.description and section.example %}
+              <button class="kss-icon-btn kss-icon-btn--description" aria-controls="kss-description-{{ section.referenceURI }}" aria-expanded="false">Description</button>
+            {% endif %}
+
+            {% if section.markup %}
+              <button class="kss-icon-btn kss-icon-btn--markup" aria-controls="kss-markup-{{ section.referenceURI }}" aria-expanded="false">Markup</button>
+            {% endif %}
+          </div>
+
+          {% if section.example %}
+            <div class="kss-section__example">
+              <iframe class="kss-section__example-iframe" src="item-{{ section.referenceURI }}.html"></iframe>
+            </div>
+          {% endif %}
+
+          {% if section.description or section.colors or section.parameters %}
+            <div class="kss-style kss-section__description{% if section.example %} kss-section__description--popup" id="kss-description-{{ section.referenceURI }}" aria-hidden="true"{% else %}"{% endif %}>
+              {{ section.description|raw }}
+
+              {% if section.colors %}
+                <ul class="kss-color__wrapper">
+                  {% for color in section.colors %}
+                    <li class="kss-color">
+                      <div class="kss-color__swatch" style="background-color:{{ color.color }}"></div>
+                      <div class="kss-color__details">
+                        {% if color.name %}
+                          <strong class="kss-color__name">{{ color.name }}</strong>
+                        {% endif %}
+                        <span class="kss-color__value"><code>{{ color.color }}</code></span>
+                        {% if color.description %}
+                          <span class="kss-color__description">{{ color.description }}</span>
+                        {% endif %}
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+
+              {% for parameter in section.parameters %}
+                {% if loop.first %}
+                  <div class="kss-parameters__title">Parameters:</div>
+                  <ul class="kss-parameters">
+                {% endif %}
+                  <li class="kss-parameters__item">
+                    <div class="kss-parameters__name"><code>{{ parameter.name }}</code></div>
+                    <div class="kss-parameters__description">
+                      {{ parameter.description|raw }}
+                      {% if parameter.defaultValue %}
+                        <div class="kss-parameters__default-value">
+                          Defaults to: <code>{{ parameter.defaultValue }}</code>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </li>
+                  {% if loop.last %}
+                    </ul>
+                  {% endif %}
+              {% endfor %}
+
+            </div>
+          {% endif %}
+
+          {% if section.markup %}
+            <div class="kss-style kss-section__markup" id="kss-markup-{{ section.referenceURI }}" aria-hidden="true">
+              {% if section.markupFile %}
+                <div class="kss-section__markup-file">
+                  Twig: <code>{{ section.markupFile }}</code>
+                </div>
+              {% endif %}
+              {% if section.sourceFile.name %}
+                <div class="kss-section__markup-file">
+                  Source: <code>{{ section.sourceFile.name }}</code>, line {{ section.sourceFile.line }}
+                </div>
+              {% endif %}
+              <pre class="kss-section__markup-code {{ options.markupClass|default('language-html') }}">
+                <code class="{{ options.markupClass|default('language-html') }}">{{ section.markup|escape('html') }}</code>
+              </pre>
+            </div>
+          {% endif %}
+
+        </section>
+      {% endif %}
+
+    {% endfor %}
+  {% endif %}
+</main>
+
+<footer class="kss-footer kss-style">
+  <div class="kss-footer__item">
+    <label for="kss-deep-nav">Section</label>
+    <select id="kss-deep-nav" onchange="location=this.options[this.selectedIndex].value;">
+      {% for menu_item in menu %}
+        {% if menu_item.children is not empty %}
+          <optgroup label="{{ menu_item.header }}">
+            {% for menu_child in menu_item.children %}
+              <option value="section-{{ menu_item.referenceURI }}.html#kssref-{{ menu_child.referenceURI }}">{{ menu_child.header }}</option>
+            {% endfor %}
+          </optgroup>
+        {% else %}
+          <option value="section-{{ menu_item.referenceURI }}.html">{{ menu_item.header }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  </div>
+  <div class="kss-footer__item">
+    [viewport toggle]
+  </div>
+  <div class="kss-footer__item">
+    [grid toggle]
+  </div>
+</footer>
 </div>
-
 <!-- SCRIPTS -->
 <script src="kss-assets/auto-complete.min.js"></script>
 <script src="kss-assets/kss.js"></script>
-<script src="kss-assets/kss.hideAll.js"></script>
-<script src="kss-assets/kss.offscreen.js"></script>
-<script src="kss-assets/kss.autocomplete.js"></script>
-<script src="kss-assets/details-element-polyfill.min.js"></script>
-{{ scripts|raw }}
-
 {% if options.highlightSyntax %}
-  <script src="kss-assets/syntax-highlighting/prism.js"></script>
+<script src="kss-assets/syntax-highlighting/prism.js"></script>
 {% endif %}
+
+{% endif %} {# end item check #}
+{{ scripts|raw }}
 </body>
 </html>
