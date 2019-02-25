@@ -11,6 +11,8 @@ $kss-colors-foreground-alt    : #4a4e57;
 $kss-colors-quotes            : #828a8e;
 $kss-colors-sidebar           : #ecf1f3;
 $kss-colors-border            : #c4d0d6;
+$kss-colors-button            : #e5e9ef;
+$kss-colors-shadow            : rgba(0,0,0,0.4);
 
 $kss-colors-link              : #0645ad;
 $kss-colors-link-visited      : #0645ad;
@@ -21,7 +23,9 @@ $kss-font-body                : -apple-system, BlinkMacSystemFont, 'Segoe UI', '
 $kss-font-code                : Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 
 $kss-font-size                : 0.875rem;
-$kss-vertical-rhythm          : $kss-font-size * 1.5;
+$kss-vertical-rhythm          : 1rem;
+$kss-breakpoint               : 600px;
+$kss-container                : 1180px;
 
 // ------------------------------------------------------------------------------
 // Wrap all of this builder's base HTML styling inside a .kss-style selector.
@@ -157,6 +161,55 @@ $kss-vertical-rhythm          : $kss-font-size * 1.5;
     vertical-align: top;
   }
 
+  label {
+    color: $kss-colors-foreground;
+    font-size: .875rem;
+    margin: 0 8px 0 0;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  input,
+  select {
+    background: $kss-colors-background;
+    background-repeat: no-repeat;
+    color: $kss-colors-foreground-alt;
+    box-shadow: 0 0 2px $kss-colors-shadow;
+    font-size: .875rem;
+    border-radius: 3px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    vertical-align: middle;
+  }
+
+  input {
+    &[type="checkbox"] {
+      background-position: center center;
+      background-size: 13px 13px;
+      height: $kss-vertical-rhythm;
+      width: $kss-vertical-rhythm;
+
+      &:checked {
+        background-image: url('check.svg');
+      }
+    }
+  }
+
+  select {
+    background-image: url('chevron-down.svg');
+    background-position: right 12px center;
+    cursor: pointer;
+    padding: 0 12px;
+    height: 38px;
+
+    // Hide default arrow.
+    &::-ms-expand {
+      display: none;
+    }
+  }
+
   @media print {
     a, a:visited { text-decoration: underline; }
     hr { height: 1px; border:0; border-bottom:1px solid black; }
@@ -177,6 +230,8 @@ $kss-vertical-rhythm          : $kss-font-size * 1.5;
 
 #kss-node {
   margin: 0;
+  background-color: transparent;
+
 
   .kss-wrapper {
     background: $kss-colors-background-alt;
@@ -192,6 +247,8 @@ $kss-vertical-rhythm          : $kss-font-size * 1.5;
     display: flex;
     align-items: center;
     margin-bottom: 53px;
+    position: fixed;
+    top: 0;
   }
 
   .kss-doc-title {
@@ -202,13 +259,77 @@ $kss-vertical-rhythm          : $kss-font-size * 1.5;
     font-weight: bold;
   }
 
+  .kss-container {
+    max-width: $kss-container;
+    margin: 0 auto;
+  }
+
   .kss-main {
-    margin: 100px auto;
-    max-width: 80rem;
+    padding: 159px $kss-vertical-rhythm;
+    position: relative;
+
+    @media screen and (min-width: $kss-container) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .kss-grid {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    &[aria-hidden="true"] {
+      display: none;
+    }
+
+    &__mobile {
+      height: 100%;
+      padding: 0 .5rem;
+      display: flex;
+
+      @media screen and (min-width: $kss-breakpoint) {
+        display: none;
+      }
+    }
+
+    &__desktop {
+      height: 100%;
+      padding: 0;
+      display: none;
+
+      @media screen and (min-width: $kss-breakpoint) {
+        display: flex;
+      }
+    }
+
+    &__col {
+      border-left: 1px solid #d800ff;
+      border-right: 1px solid #d800ff;
+      background-color: rgba(#d800ff, .1);
+      height: 100%;
+      flex: 1;
+      margin: 0 ($kss-vertical-rhythm / 2);
+
+      @media screen and (min-width: $kss-breakpoint) {
+        margin: 0 $kss-vertical-rhythm;
+      }
+    }
   }
 
   .kss-footer {
-    background-color: $kss-colors-background;
+    background-color: $kss-colors-background-alt;
+    color: $kss-colors-foreground-alt;
+    box-shadow: 0 -2px 6px $kss-colors-shadow;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px $kss-vertical-rhythm;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
   }
 }
 
@@ -234,40 +355,59 @@ $kss-vertical-rhythm          : $kss-font-size * 1.5;
       text-decoration: none;
       display: inline-block;
       padding: 16px 10px;
+      position: relative;
 
       &:focus,
       &:hover {
-        text-decoration: underline;
+        text-decoration: none;
       }
     }
-  }
 
-  .kss-nav__menu-link {
-    position: relative;
-    color: inherit;
-    text-decoration: none;
-    display: inline-block;
-    padding: 16px;
-
-    &:focus,
-    &:hover {
-      text-decoration: underline;
+    &.kss-nav__menu-item--active {
+      > a {
+        &::after {
+          @media screen and (min-width: $kss-breakpoint) {
+            content: '';
+            width: 10px;
+            height: 10px;
+            transform: rotate(135deg);
+            background: currentColor;
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            margin-left: -5px;
+            z-index: 1;
+          }
+        }
+      }
     }
   }
 
   .kss-nav__menu-child {
     background-color: $kss-colors-background;
     color: $kss-colors-foreground-alt;
+    box-shadow: 0 2px 6px $kss-colors-shadow;
     list-style-type: none;
     margin: 0;
     padding: 0;
     position: absolute;
     left: 0;
-    top: 65px;
+    top: 50px;
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: center;
+  }
+
+  .kss-nav__menu-child-item {
+    > a {
+      border-bottom: 2px solid transparent;
+
+      &:hover,
+      &:focus {
+        border-color: $kss-colors-foreground;
+      }
+    }
   }
 }
 
@@ -279,10 +419,12 @@ $kss-vertical-rhythm          : $kss-font-size * 1.5;
 
   .kss-section {
     margin-bottom: ($kss-vertical-rhythm * 2);
+    position: relative;
 
     &--has-example {
       .kss-section__header {
         display: flex;
+        align-items: center;
         padding: 4px 0;
         border-bottom: 1px solid $kss-colors-border;
         margin-bottom: $kss-vertical-rhythm;
@@ -294,8 +436,16 @@ $kss-vertical-rhythm          : $kss-font-size * 1.5;
     }
 
     &__example {
-      padding: $kss-vertical-rhythm 0;
-      background-color: $kss-colors-background-dark;
+      background-color: $kss-colors-background;
+      padding: $kss-vertical-rhythm;
+      margin-left: -$kss-vertical-rhythm;
+      margin-right: -$kss-vertical-rhythm;
+
+      @media screen and (min-width: $kss-container) {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
 
       &-iframe {
         width: 100%;
@@ -342,6 +492,30 @@ $kss-vertical-rhythm          : $kss-font-size * 1.5;
       padding: $kss-vertical-rhythm;
       max-width: 50rem;
 
+      &--popup {
+        box-shadow: 0 0 6px $kss-colors-shadow;
+        border-radius: 6px;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        z-index: 1;
+
+        @media screen and (min-width: $kss-breakpoint) {
+          max-width: 36rem;
+        }
+
+        &::after {
+          content: '';
+          width: 10px;
+          height: 10px;
+          transform: rotate(135deg);
+          background: $kss-colors-background;
+          position: absolute;
+          top: -5px;
+          right: 11px;
+        }
+      }
+
       > * {
         &:first-child {
           margin-top: 0;
@@ -363,7 +537,6 @@ $kss-vertical-rhythm          : $kss-font-size * 1.5;
         background-color: $kss-colors-sidebar;
       }
 
-
       pre[class*="language-"] {
         background-color: #272822;
       }
@@ -381,7 +554,32 @@ $kss-vertical-rhythm          : $kss-font-size * 1.5;
 
   .kss-icon-btn {
     border: 0;
-    background: none;
+    padding: 0;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 16px 16px;
+    overflow: hidden;
+    text-align: left;
+    text-indent: 100%;
+    height: 32px;
+    width: 32px;
+    border-radius: 32px;
+    cursor: pointer;
+
+    &:hover,
+    &:focus,
+    &.is-active {
+      background-color: $kss-colors-button;
+    }
+
+    &--markup {
+      background-image: url('code.svg');
+    }
+
+    &--description {
+      background-image: url('info.svg');
+    }
   }
 
   .kss-color {

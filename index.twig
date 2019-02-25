@@ -87,7 +87,7 @@
   </nav>
 </header>
 
-<main role="main" class="kss-main">
+<main role="main" class="kss-main kss-container">
   {% if homepage %}
     <div class="kss-section kss-overview kss-style">
       {{ homepage|raw }}
@@ -119,12 +119,12 @@
               <a class="kss-title__ref" href="#kssref-{{ section.referenceURI }}">{{ section.referenceNumber }}</a>
             </{{ headerElement }}>
 
-            {% if section.description and section.example %}
-              <button class="kss-icon-btn kss-icon-btn--description" aria-controls="kss-description-{{ section.referenceURI }}" aria-expanded="false">Description</button>
+            {% if section.markup %}
+              <button class="kss-icon-btn kss-icon-btn--markup kss-js-toggle" aria-controls="kss-markup-{{ section.referenceURI }}" aria-expanded="false">Markup</button>
             {% endif %}
 
-            {% if section.markup %}
-              <button class="kss-icon-btn kss-icon-btn--markup" aria-controls="kss-markup-{{ section.referenceURI }}" aria-expanded="false">Markup</button>
+            {% if section.description and section.example %}
+              <button class="kss-icon-btn kss-icon-btn--description kss-js-toggle" aria-controls="kss-description-{{ section.referenceURI }}" aria-expanded="false" data-toggle-close="outside">Description</button>
             {% endif %}
           </div>
 
@@ -204,6 +204,18 @@
 
     {% endfor %}
   {% endif %}
+  <div id="kss-grid" class="kss-grid kss-container" aria-hidden="true">
+    <div class="kss-grid__mobile">
+      <div class="kss-grid__col"></div><div class="kss-grid__col"></div>
+      <div class="kss-grid__col"></div><div class="kss-grid__col"></div>
+    </div>
+    <div class="kss-grid__desktop">
+      <div class="kss-grid__col"></div><div class="kss-grid__col"></div><div class="kss-grid__col"></div>
+      <div class="kss-grid__col"></div><div class="kss-grid__col"></div><div class="kss-grid__col"></div>
+      <div class="kss-grid__col"></div><div class="kss-grid__col"></div><div class="kss-grid__col"></div>
+      <div class="kss-grid__col"></div><div class="kss-grid__col"></div><div class="kss-grid__col"></div>
+    </div>
+  </div>
 </main>
 
 <footer class="kss-footer kss-style">
@@ -227,7 +239,8 @@
     [viewport toggle]
   </div>
   <div class="kss-footer__item">
-    [grid toggle]
+    <label for="kss-grid-toggle">Show grid</label>
+    <input type="checkbox" name="kss-grid-toggle" class="kss-js-toggle" aria-controls="kss-grid" aria-expanded="false">
   </div>
 </footer>
 </div>
