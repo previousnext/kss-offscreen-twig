@@ -232,6 +232,16 @@ $kss-container                : 1180px;
   margin: 0;
   background-color: transparent;
 
+  .kss-hide {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
 
   .kss-wrapper {
     background: $kss-colors-background-alt;
@@ -446,6 +456,10 @@ $kss-container                : 1180px;
         margin-right: 0;
       }
 
+      &--wide {
+        padding-left: 0;
+        padding-right: 0;
+      }
 
       &-iframe {
         width: 100%;
@@ -656,6 +670,19 @@ $kss-container                : 1180px;
 
     &__default-value code {
       white-space: nowrap;
+    }
+  }
+
+  .kss-example {
+    overflow: hidden;
+    margin-bottom: $kss-vertical-rhythm;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    + .kss-style {
+      margin-bottom: $kss-vertical-rhythm;
     }
   }
 }
