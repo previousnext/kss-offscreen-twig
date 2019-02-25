@@ -8,6 +8,7 @@
   <meta name="generator" content="kss-node">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <script src="kss-assets/kss.iframe.js"></script>
   <link rel="stylesheet" href="kss-assets/kss.css">
   {% if options.highlightSyntax %}
     <link rel="stylesheet" href="kss-assets/syntax-highlighting/prism.css">
@@ -52,6 +53,7 @@
         {{ modifier.markup|raw }}
       </div>
     {% endfor %}
+    <script type="text/javascript">window.top.resizeIframe(this);</script>
   {% endfor %}
 {% else %}
 <div class="kss-wrapper">
@@ -230,8 +232,8 @@
 </footer>
 </div>
 <!-- SCRIPTS -->
-<script src="kss-assets/auto-complete.min.js"></script>
-<script src="kss-assets/kss.js"></script>
+<script src="kss-assets/kss.stategenerator.js"></script>
+<script src="kss-assets/kss.toggle.js"></script>
 {% if options.highlightSyntax %}
 <script src="kss-assets/syntax-highlighting/prism.js"></script>
 {% endif %}
