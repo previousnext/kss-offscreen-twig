@@ -36,8 +36,8 @@
       {% set default = section.default|default('show') %}
       {% set exampleClasses = [
         'kss-example',
-        options.exampleClass ? options.exampleClass|default(''),
-        section.wrapper ? section.wrapper|default('')
+        options.exampleClass|default(''),
+        section.wrapper|default('')
       ] %}
       {% if default == 'show' %}
         <div class="{{ exampleClasses|join(' ') }}">
@@ -243,8 +243,14 @@
       {% endfor %}
     </select>
   </div>
-  <div class="kss-footer__item">
-    [viewport toggle]
+  <div class="kss-footer__item kss-desktop-only">
+    <label for="kss-grid-toggle">Viewport</label>
+    <ul class="kss-viewport-toggle kss-js-viewport">
+      <li><button type="button" class="kss-icon-btn kss-icon-btn--small">Small</button></li>
+      <li><button type="button" class="kss-icon-btn kss-icon-btn--medium">Medium</button></li>
+      <li><button type="button" class="kss-icon-btn kss-icon-btn--large is-active">Large</button></li>
+      <li><button type="button" class="kss-icon-btn kss-icon-btn--infinite">Infinite</button></li>
+    </ul>
   </div>
   <div class="kss-footer__item">
     <label for="kss-grid-toggle">Show grid</label>
@@ -255,6 +261,7 @@
 <!-- SCRIPTS -->
 <script src="kss-assets/kss.stategenerator.js"></script>
 <script src="kss-assets/kss.toggle.js"></script>
+<script src="kss-assets/kss.viewport.js"></script>
 {% if options.highlightSyntax %}
 <script src="kss-assets/syntax-highlighting/prism.js"></script>
 {% endif %}
