@@ -1,5 +1,5 @@
 new autoComplete({
-  selector: 'input[name="search"]',
+  selector: 'input[name="kss-search"]',
   menuClass: 'kss-autocomplete__menu kss-style',
   minChars: 1,
   offsetTop: -1,
