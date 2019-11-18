@@ -19,7 +19,7 @@
     "del": "^2.2.2",
     "gulp": "^4.0.2",
     "gulp-sass": "^4.0.2",
-    "gulp-sass-lint": "^1.3.2",
+    "gulp-sass-lint": "^1.4",
     "kss": "^3.0.0-beta.25"
   }
 }
