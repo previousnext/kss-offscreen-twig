@@ -1,8 +1,10 @@
 # Builder for kss-node with offscreen menu using Twig
 
-**Requires KKS-node 3.0.x**
+**Requires KSS-node 3.0.x**
 
-This is a **builder** for [kss-node](https://github.com/kss-node/kss-node) living styleguide. It feature a toggle-able sidebar menu so you can choose to see the styleguide at full browser width. It also has a search function to easily find your component.
+This is a **builder** for [kss-node](https://github.com/kss-node/kss-node) living styleguide. It feature a toggle-able 
+sidebar menu so you can choose to see the styleguide at full browser width. It also has a search function to easily find 
+your component.
 
 You can [see the demo here](https://previousnext.github.io/kss-offscreen-twig/).
 
