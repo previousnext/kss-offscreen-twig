@@ -26,7 +26,7 @@ jobs:
             - ~/.npm
       - run:
           name: Build
-          command: npm run sass
+          command: npm run build
       - run:
           name: Lint
           command: npm run lint
