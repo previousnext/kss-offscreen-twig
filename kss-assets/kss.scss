@@ -612,11 +612,11 @@ $kss-vertical-rhythm          : $kss-font-size * 1.5;
     }
 
 
-    pre[class*="language-"] {
+    pre[class*='language-'] {
       background-color: #272822;
     }
 
-    code[class*="language-"] {
+    code[class*='language-'] {
       background-color: transparent;
     }
   }
