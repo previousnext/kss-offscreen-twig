@@ -20,7 +20,7 @@
     "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-cli": "^2.3.0",
-    "gulp-sass": "^4.1.0",
+    "gulp-sass": "^5.0.0",
     "gulp-sass-lint": "^1.4",
     "kss": "^3.0.1"
   }
